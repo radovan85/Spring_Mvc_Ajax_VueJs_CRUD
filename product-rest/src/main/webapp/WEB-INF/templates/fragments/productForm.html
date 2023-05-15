@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http//www.thymeleaf.org">
+
+<th:block th:fragment="ajaxLoadedContent">
+	<div id="vueContent" class="container" 
+		style="margin-bottom: 100px;margin-top: 100px;font-family: Oswald, sans-serif">
+		<div class="text-center text-primary mb-5">
+			<h2>Product Form</h2>
+		</div>
+		
+		<form id="productForm">
+		
+			<div class="form-group">
+				<label for="name">Name</label>
+				<input 
+					type="text"
+					class="form-control"
+					id="name"
+					v-model="name"
+					th:placeholder="${'Enter Product Name'}"
+				/>
+				<span class="text-danger"
+					id="nameError"
+					th:style="${'visibility: hidden;'}"
+					th:text="${'Not Empty!Maximum 50 letters allowed!'}" >
+				</span>
+			</div>
+			
+			<div class="form-group">
+				<label for="category">Category</label>
+				<input 
+					type="text"
+					class="form-control"
+					id="category"
+					v-model="category"
+					th:placeholder="${'Enter Category'}"
+				/>
+				<span class="text-danger"
+					id="categoryError"
+					th:style="${'visibility: hidden;'}"
+					th:text="${'Not Empty!Maximum 50 letters allowed!'}" >
+				</span>
+			</div>
+			
+			<div class="form-group">
+				<label for="price">Price</label>
+				<input 
+					type="text"
+					class="form-control"
+					id="price"
+					v-model="price"
+					th:placeholder="${'Enter Price'}"
+					th:onkeypress="return validateNumber(event)"
+				/>
+				<span class="text-danger"
+					id="priceError"
+					th:style="${'visibility: hidden;'}"
+					th:text="${'Please provide valid price!Minimum 10!'}" >
+				</span>
+			</div>
+			
+			<div class="form-group">
+				<label for="imageUrl">Image Url</label>
+				<input 
+					type="text"
+					class="form-control"
+					id="imageUrl"
+					v-model="imageUrl"
+					th:placeholder="${'Enter Image Url'}"
+				/>
+				<span class="text-danger"
+					id="imageUrlError"
+					th:style="${'visibility: hidden;'}"
+					th:text="${'Not Empty!Maximum 255 letters allowed!'}" >
+				</span>
+			</div>
+			
+			<div class="box-footer text-center mt-5">
+				<button type="submit" class="btn btn-info">Submit</button>
+			</div>
+			
+		</form>
+		
+	</div>
+	
+	<script th:src="@{/js/products.js?newversion}"></script>
+	
+	<script>
+		var element = document.getElementById("productForm");
+		element.addEventListener("submit", event => {
+			event.preventDefault();
+			productApp.addProduct();
+		})
+	</script>
+		
+</th:block>

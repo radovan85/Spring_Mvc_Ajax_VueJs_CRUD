@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http//www.thymeleaf.org">
+<!-- Include layout head fragment -->
+<head th:replace="fragments/layout :: head"></head>
+
+<body style="background-color: #e9ecee">
+	<!-- Include layout navbar menu -->
+	<div th:replace="fragments/layout :: navbar-menu"></div>
+	
+	<!-- Load content Jquery/Ajax -->
+	<div id="ajaxLoadedContent"></div>
+	
+	<!-- Include Js files -->
+	<script th:src="@{/js/main.js?newversion}"></script>
+	<script th:src="@{/js/validation.js?newversion}"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http//www.thymeleaf.org">
+
+<th:block th:fragment="ajaxLoadedContent">
+	<div id="vueContent" class="container" 
+		style="margin-bottom: 100px;margin-top: 100px;font-family: Oswald, sans-serif">
+		<div class="text-center text-primary mb-5">
+			<h2>Product List</h2>
+		</div>
+		
+		<div class="mb-4">
+			<button class="btn btn-info" 
+				th:onclick="redirectAddProduct()">
+				Add Product
+			</button>
+		</div>
+		
+		<table class="table table-bordered table-hover table-stripped" id="listingTable">
+			<thead>
+				<tr>
+					<th>Preview</th>
+					<th>Product Id</th>
+					<th>Name</th>
+					<th>Category</th>
+					<th>Price</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr v-for="tempProduct in productList" :key="tempProduct.productId">
+					<td>
+						<img @error="loadPreviewError($event)" :src="tempProduct.imageUrl" 
+							style="max-height: 90px;width:110px;" />
+					</td>
+					
+					<td>{{ tempProduct.productId }}</td>
+					<td>{{ tempProduct.name }}</td>
+					<td>{{ tempProduct.category }}</td>
+					<td>
+						<span>&euro;&#160;</span>
+						<span v-html="Number(tempProduct.price).toFixed(2)"></span>
+					</td>
+					<td>
+						<div class="dropdown">
+							<button class="btn btn-info dropdown-toggle" data-toggle="dropdown">Actions</button>
+							<div class="dropdown-menu">
+							 							
+								<button class="dropdown-item" 
+									style="background-color: #0b4f7e;color: #dce3e7;"
+									th:onmouseout="this.style='background-color: #0b4f7e;color: #dce3e7;'"
+									th:onmouseover="this.style='background-color: #54a4dc;color: #dce3e7;'"
+									v-on:click="getProduct(tempProduct.productId)">
+									Details
+								</button>
+								<button class="dropdown-item"
+									style="background-color: #0b4f7e;color: #dce3e7;"
+									th:onmouseout="this.style='background-color: #0b4f7e;color: #dce3e7;'"
+									th:onmouseover="this.style='background-color: #54a4dc;color: #dce3e7;'"
+									v-on:click="updateProduct(tempProduct.productId)">
+									Update
+								</button>
+								 		 								 								
+								<button class="dropdown-item"
+									style="background-color: #900e14;color: #dce3e7;"
+									th:onmouseout="this.style='background-color: #900e14;color: #dce3e7;'"
+									th:onmouseover="this.style='background-color: #c41119;color: #dce3e7;'"
+									v-on:click="deleteProduct(tempProduct.productId)">
+									Delete
+								</button>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script th:src="@{/js/products.js?newversion}"></script>
+
+</th:block>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http//www.thymeleaf.org">
+
+<th:block th:fragment="ajaxLoadedContent">
+	<div id="vueContent" class="container" 
+		style="margin-bottom: 100px;margin-top: 100px;font-family: Oswald, sans-serif">
+		<div class="text-center text-primary mb-5">
+			<h2>Product Details</h2>
+		</div>
+		
+		<table class="table table-bordered table-secondary">
+			<tbody>
+				<tr>
+					<td>Preview</td>
+					<td>
+						<img @error="loadPreviewError($event)" :src="imageUrl"
+							style="max-height: 150px;width: 30%" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>Product Id</td>
+					<td>{{ productId }}</td>
+				</tr>
+				
+				<tr>
+					<td>Name</td>
+					<td>{{ name }}</td>
+				</tr>
+				
+				<tr>
+					<td>Category</td>
+					<td>{{ category }}</td>
+				</tr>
+				
+				<tr>
+					<td>Price</td>
+					<td>
+						<span>&euro;&#160;</span>
+						<span v-html="Number(price).toFixed(2)"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div class="text-center mt-5">
+			<button class="btn btn-secondary"
+				th:onclick="redirectAllProducts()">
+				All Products
+			</button>
+		</div>
+	</div>
+	
+	<script th:src="@{/js/products.js?newversion}"></script>
+	
+	<script>
+		$(document).ready(function(){
+			var productId = "[[${productId}]]" // retrieving from thymeleaf
+			productApp.getSelectedProduct(productId);
+		})
+		
+	</script>
+	
+</th:block>
